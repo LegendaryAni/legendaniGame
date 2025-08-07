@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegendAniGames</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="main-menu">
+        <h1>圈圈叉叉</h1>
+        <button onclick="showModeSelection()">開始遊戲</button>
+        <button onclick="showDifficulty()">難度調整</button>
+        <button onclick="showSoundSettings()">音效設定</button>
+        <button onclick="switchTheme()">切換主題</button>
+        <button onclick="resetTutorial()">重看教學</button>
+        <p id="current-theme">當前主題：預設藍色</p>
+    </div>
+
+    <div id="mode-selection" style="display: none;">
+        <h2>選擇模式</h2>
+        <button onclick="startSinglePlayer()">單人模式 (AI)</button>
+        <button onclick="startTwoPlayer()">雙人模式 (真人)</button>
+        <button onclick="backToMenu()">返回</button>
+    </div>
+
+    <div id="difficulty" style="display: none;">
+        <h2>難度調整</h2>
+        <button onclick="setDifficulty('easy')">簡單</button>
+        <button onclick="setDifficulty('normal')">普通</button>
+        <button onclick="setDifficulty('hard')">困難</button>
+        <button onclick="setDifficulty('hell')">地獄</button>
+        <button onclick="backToMenu()">返回</button>
+    </div>
+
+    <div id="sound-settings" style="display: none;">
+        <h2>音效設定</h2>
+        <div class="setting-row">
+            <label for="volume">音量：</label>
+            <input type="range" id="volume" min="0" max="100" value="50">
+        </div>
+        <div class="setting-row">
+            <label for="animations-on"><input type="checkbox" id="animations-on" checked> 開啟動畫</label>
+        </div>
+        <button onclick="testSound()">測試音效</button>
+        <button onclick="backToMenu()">返回</button>
+    </div>
+
+    <div id="game" style="display: none;">
+        <div id="game-info">
+            <p id="scoreboard">你: 0 | AI: 0</p>
+            <p id="turn-indicator">輪到你了 (X)</p>
+        </div>
+        <div id="board"></div> <div id="game-controls">
+            <button id="hint" onclick="getHint()">提示</button>
+            <button onclick="resetGame()">重新開始</button>
+            <button onclick="backToMenu()">返回主介面</button>
+        </div>
+    </div>
+
+    <div id="modal" class="modal-hidden">
+        <div id="modal-content">
+            <p id="modal-text"></p>
+            <div id="modal-buttons">
+                <button onclick="closeModal()">確定</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
