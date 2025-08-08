@@ -312,6 +312,18 @@ input[type=range] {
     0% { transform: translateY(-10vh) rotateZ(0); opacity: 1; }
     to { transform: translateY(110vh) rotateZ(360deg); opacity: 0; }
 }
+#sound-prompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
 @media (max-width: 600px) {
     button {
         padding: 15px;
