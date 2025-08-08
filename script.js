@@ -100,16 +100,17 @@ const WINS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 const sounds = {};
 function initializeSounds() {
     const soundFiles = {
-        press: './assets/sounds/button-4.mp3',
-        release: './assets/sounds/button-7.mp3',
-        place: './assets/sounds/button-16.mp3',
-        win: './assets/sounds/magic-chime-01.mp3',
-        lose: './assets/sounds/camera-shutter-click-01.mp3',
-        draw: './assets/sounds/light-switch-3.mp3'
+        press: './assets/sounds/button01a.mp3', // 按鈕按下
+        release: './assets/sounds/button01b.mp3', // 按鈕釋放
+        place: './assets/sounds/coin01.mp3', // 放置棋子
+        win: './assets/sounds/correct_answer1.mp3', // 勝利
+        lose: './assets/sounds/powerdown01.mp3', // 失敗
+        draw: './assets/sounds/blip01.mp3' // 平局
     };
     for (const [key, path] of Object.entries(soundFiles)) {
         try {
             sounds[key] = new Audio(path);
+            sounds[key].preload = 'auto'; // 預載音效以提高性能
         } catch (e) {
             logError(`音效檔案 ${path} 載入失敗:`, e);
             sounds[key] = null; // 設置為 null 以禁用該音效
@@ -121,9 +122,9 @@ function playSound(sound) {
     try {
         const s = sound.cloneNode();
         s.volume = gameState.volume;
-        s.play().catch(e => logError("音效播放失敗:", e));
+        s.play().catch(e => logError(`音效播放失敗: ${e.message}`, e));
     } catch (e) {
-        logError("音效處理錯誤:", e);
+        logError(`音效處理錯誤: ${e.message}`, e);
     }
 }
 
@@ -380,7 +381,7 @@ function minimax(aiPlayer, humanPlayer, depth) {
     }
     return { move: bestMove, score: bestScore };
 }
-function evaluateBoard(aiPlayer, humanPlayer, depth) {
+function evaluateBoard(aiPlayer, genPlayer, depth) {
     if (isWinner(aiPlayer)) return 10 + depth;
     if (isWinner(humanPlayer)) return -10 - depth;
     if (!gameState.board.includes('')) return 0;
@@ -542,7 +543,7 @@ function updateUIText() {
         for (const [id, text] of Object.entries(buttons)) {
             const btn = doc.views.main.querySelector(`#${id}`);
             if (btn) btn.innerText = text;
-            else logError(`無法找到按鈕 #${id}，無法更新文字`);
+            else logError(`無法找到主選單按鈕 #${id}，無法更新文字`);
         }
     }
     if (doc.views.game) {
@@ -554,7 +555,7 @@ function updateUIText() {
         for (const [id, text] of Object.entries(buttons)) {
             const btn = doc.views.game.querySelector(`#${id}`);
             if (btn) btn.innerText = text;
-            else logError(`無法找到按鈕 #${id}，無法更新文字`);
+            else logError(`無法找到遊戲介面按鈕 #${id}，無法更新文字`);
         }
     }
 }

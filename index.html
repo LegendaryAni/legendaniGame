@@ -6,6 +6,8 @@
     <title>圈圈叉叉</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
+    <!-- 添加空 favicon 防止 404 錯誤 -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
 <body class="default">
     <div id="main-menu">
@@ -63,8 +65,8 @@
         </div>
         <div id="board"></div>
         <button id="hint">提示</button>
-        <button onclick="resetGame()">重新開始</button>
-        <button onclick="showElement('main')">返回主介面</button>
+        <button id="restart">重新開始</button>
+        <button id="back-to-menu">返回主介面</button>
     </div>
 
     <div id="modal">
